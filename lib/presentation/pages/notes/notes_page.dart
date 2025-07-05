@@ -19,7 +19,16 @@ class NotesPage extends StatelessWidget {
     }
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Notes'),
+        title: const Center(
+          child: Padding(
+            padding: EdgeInsets.only(top: 30),
+            child: Text(
+              'Your Notes',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
             onPressed: () {
@@ -52,24 +61,30 @@ class NotesPage extends StatelessWidget {
             itemBuilder: (context, index) {
               final note = notes[index];
               return Card(
-                margin: const EdgeInsets.all(8),
-                child: ListTile(
-                  title: Text(note.text),
-                  subtitle: Text(
-                    'Updated: \\${note.updatedAt.toString().substring(0, 16)}',
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        onPressed: () => _showEditDialog(context, note),
-                        icon: const Icon(Icons.edit),
+                color: const Color(0xFFEFE8F8),
+                margin: const EdgeInsets.only(left: 20, right: 20, top: 16, bottom: 8),
+                child: Padding(
+                  padding: const EdgeInsets.all(2),
+                  child: ListTile(
+                    title: Center(
+                      child: Text(
+                        note.text,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      IconButton(
-                        onPressed: () => _showDeleteDialog(context, note.id),
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                      ),
-                    ],
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () => _showDeleteDialog(context, note.id),
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                        ),
+                        IconButton(
+                          onPressed: () => _showEditDialog(context, note),
+                          icon: const Icon(Icons.edit, color: Colors.blue),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );
@@ -79,7 +94,8 @@ class NotesPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddDialog(context, user.uid),
-        child: const Icon(Icons.add),
+        backgroundColor: const Color(0xFF2A95F4),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
