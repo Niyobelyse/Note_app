@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: null,
+
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthError) {
@@ -38,24 +38,24 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: _emailController,
                       decoration: InputDecoration(
+                        labelText: 'Email',
+                        labelStyle: const TextStyle(color: Colors.black),
                         filled: true,
-                        fillColor: Colors.pink[50],
+                        fillColor: Colors.white,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Colors.black),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black, width: 2),
+                          borderSide: const BorderSide(color: Colors.pink, width: 2),
                         ),
-                        hintText: 'Email',
-                        hintStyle: const TextStyle(color: Colors.pink),
                       ),
-                      style: const TextStyle(color: Colors.pink),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter email';
@@ -70,20 +70,19 @@ class _LoginPageState extends State<LoginPage> {
                     TextFormField(
                       controller: _passwordController,
                       decoration: InputDecoration(
+                        labelText: 'Password',
+                        labelStyle: const TextStyle(color: Colors.pink),
                         filled: true,
-                        fillColor: Colors.pink[50],
+                        fillColor: Colors.white,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Colors.black),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black, width: 2),
+                          borderSide: const BorderSide(color: Colors.pink, width: 2),
                         ),
-                        hintText: 'Password',
-                        hintStyle: const TextStyle(color: Colors.pink),
                       ),
-                      style: const TextStyle(color: Colors.pink),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
