@@ -62,15 +62,13 @@ class NotesPage extends StatelessWidget {
               final note = notes[index];
               return Card(
                 color: const Color(0xFFEFE8F8),
-                margin: const EdgeInsets.only(left: 20, right: 20, top: 16, bottom: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6), 
                 child: Padding(
-                  padding: const EdgeInsets.all(2),
+                  padding: const EdgeInsets.all(2), 
                   child: ListTile(
-                    title: Center(
-                      child: Text(
-                        note.text,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                    title: Text(
+                      note.text,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
