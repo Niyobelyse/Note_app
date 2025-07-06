@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../bloc/auth/auth_bloc.dart';
 import '../../bloc/auth/auth_event.dart';
 import '../../bloc/auth/auth_state.dart';
+import 'login_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -19,18 +20,28 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Sign Up', style: TextStyle(color: Colors.pink)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.pink),
-      ),
+
       body: BlocListener<AuthBloc, AuthState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is AuthError) {
-            final message = _mapAuthErrorToMessage(state.message);
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(message), backgroundColor: Colors.pink),
+              SnackBar(content: Text(state.message), backgroundColor: Colors.pink),
+            );
+          }
+          if (state is AuthAuthenticated) {
+            final messenger = ScaffoldMessenger.of(context);
+            final navigator = Navigator.of(context);
+            await Future.delayed(const Duration(milliseconds: 800));
+            if (!mounted) return;
+            messenger.showSnackBar(
+              const SnackBar(
+                content: Text('Account created successfully! Please log in.'),
+                backgroundColor: Colors.pink,
+              ),
+            );
+            navigator.pushAndRemoveUntil(
+              MaterialPageRoute(builder: (_) => LoginPage()),
+                  (route) => false,
             );
           }
         },
@@ -43,7 +54,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.person_add_alt_1, size: 64, color: Colors.pink[200]),
+                    const SizedBox(height: 16),
+                    const Text('Sign Up', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.pink)),
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: _emailController,
@@ -51,7 +63,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         labelText: 'Email',
                         labelStyle: const TextStyle(color: Colors.pink),
                         filled: true,
-                        fillColor: Colors.pink[50],
+                        fillColor: Colors.white,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Colors.pink),
@@ -78,7 +90,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         labelText: 'Password',
                         labelStyle: const TextStyle(color: Colors.pink),
                         filled: true,
-                        fillColor: Colors.pink[50],
+                        fillColor: Colors.white,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Colors.pink),
@@ -145,14 +157,5 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
-  }
-
-  String _mapAuthErrorToMessage(String error) {
-    if (error.contains('email-already-in-use')) return 'Email already in use.';
-    if (error.contains('invalid-email')) return 'Invalid email address.';
-    if (error.contains('weak-password')) return 'Password is too weak.';
-    if (error.contains('user-not-found')) return 'No user found for this email.';
-    if (error.contains('wrong-password')) return 'Incorrect password.';
-    return 'Authentication failed. Please try again.';
   }
 }
