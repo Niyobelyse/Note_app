@@ -181,7 +181,7 @@ class NotesPage extends StatelessWidget {
               Navigator.of(context).pop();
             },
             child: const Text('Delete'),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.pink,foregroundColor: Colors.white),
           ),
         ],
       ),
