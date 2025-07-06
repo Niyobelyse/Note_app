@@ -6,7 +6,7 @@ import 'notes/notes_page.dart';
 import 'auth/login_page.dart';
 
 class AppWrapper extends StatelessWidget {
-  const AppWrapper({Key? key}) : super(key: key);
+  const AppWrapper({super.key});
 
   @override
   Widget build(BuildContext context) {
