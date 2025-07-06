@@ -3,16 +3,11 @@ import '../../domain/entities/note.dart';
 
 class NoteModel extends Note {
   const NoteModel({
-    required String id,
-    required String text,
-    required DateTime createdAt,
-    required DateTime updatedAt,
-  }) : super(
-          id: id,
-          text: text,
-          createdAt: createdAt,
-          updatedAt: updatedAt,
-        );
+    required super.id,
+    required super.text,
+    required super.createdAt,
+    required super.updatedAt,
+  });
 
   factory NoteModel.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
